@@ -5,3 +5,9 @@ html
   body
     div#hangman-drawing
       include ./includes/ascii-hangmen/6-turns-remaining.pug
+
+    form#pick-letter-form(method="post")
+          select#unused-letters(name='letter')
+            for letter in unusedLetters
+              option(value=letter)= letter
+          input#pick-letter-button(type="submit", value="Pick letter")
