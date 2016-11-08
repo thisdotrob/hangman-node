@@ -46,4 +46,16 @@ describe('viewDataExtractor extract (unit)', () => {
 
   });
 
+  it('should extract the turns left from the game', () => {
+    const game = {
+      unusedLetters: ['a', 'j', 't', 'e'],
+      otherProperty: { value: 'xyz' },
+      turnsLeft: 2,
+    };
+
+    const viewData = viewDataExtractor.extract(game);
+
+    assert.deepStrictEqual(viewData.turnsLeft, game.turnsLeft);
+  });
+
 });

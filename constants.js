@@ -7,4 +7,5 @@ module.exports = {
     minCorpusCount: 10000,
     api_key: process.env.WORDNIK_API_KEY,
   },
+  NUMBER_OF_TURNS: 6,
 };

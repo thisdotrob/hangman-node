@@ -4,7 +4,22 @@ html
 
   body
     div#hangman-drawing
-      include ./includes/ascii-hangmen/6-turns-remaining.pug
+      case turnsLeft
+        when 6
+          include ./includes/ascii-hangmen/6-turns-remaining.pug
+        when 5
+          include ./includes/ascii-hangmen/5-turns-remaining.pug
+        when 4
+          include ./includes/ascii-hangmen/4-turns-remaining.pug
+        when 3
+          include ./includes/ascii-hangmen/3-turns-remaining.pug
+        when 2
+          include ./includes/ascii-hangmen/2-turns-remaining.pug
+        when 1
+          include ./includes/ascii-hangmen/1-turns-remaining.pug
+        when 0
+          include ./includes/ascii-hangmen/0-turns-remaining.pug
+
 
     div#masked-answer
       span= maskedAnswer

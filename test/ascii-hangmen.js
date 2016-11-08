@@ -1,4 +1,4 @@
-const gameOver =
+const zeroTurnsRemaining =
   `____
   |    |
   |    o
@@ -70,7 +70,7 @@ const fiveTurnsRemaining =
 |          |
 |__________|`;
 
-const startState =
+const sixTurnsRemaining =
   `____
   |    |
   |
@@ -83,11 +83,11 @@ const startState =
 |__________|`;
 
 module.exports = {
-  gameOver,
+  zeroTurnsRemaining,
   oneTurnRemaining,
   twoTurnsRemaining,
   threeTurnsRemaining,
   fourTurnsRemaining,
   fiveTurnsRemaining,
-  startState,
+  sixTurnsRemaining,
 };

@@ -26,7 +26,7 @@ after(() => server.stop());
 describe('starting a new game (e2e)', () => {
   it('should display the hangman platform', () => {
     const hangmanState = browser.getText('#hangman-drawing');
-    assert.strictEqual(hangmanState, asciiHangmen.startState);
+    assert.strictEqual(hangmanState, asciiHangmen.sixTurnsRemaining);
   });
 
   it('should display the dropdown of unused letters the player can choose from', () => {
@@ -46,7 +46,7 @@ describe('starting a new game (e2e)', () => {
 
 describe('selecting a wrong letter (e2e)', () => {
   it('should remove the letter from the dropdown of unused letters', () => {
-    const wrongLetter = constants.FULL_ALPHABET.find(letter => !TEST_ANSWER.includes(letter));
+    const wrongLetter = 'z';
 
     browser.selectByVisibleText('#unused-letters', wrongLetter);
     browser.click('#select-letter-button');
@@ -56,6 +56,37 @@ describe('selecting a wrong letter (e2e)', () => {
     const expectedUnusedLetters = constants.FULL_ALPHABET.join('').replace(wrongLetter, '');
 
     assert.strictEqual(unusedLetters, expectedUnusedLetters);
+  });
+
+  it('should use up a turn', () => {
+    let hangmanState = browser.getText('#hangman-drawing');
+    assert.strictEqual(hangmanState, asciiHangmen.fiveTurnsRemaining);
+
+    browser.selectByVisibleText('#unused-letters', 'y');
+    browser.click('#select-letter-button');
+    hangmanState = browser.getText('#hangman-drawing');
+    assert.strictEqual(hangmanState, asciiHangmen.fourTurnsRemaining);
+
+    browser.selectByVisibleText('#unused-letters', 'x');
+    browser.click('#select-letter-button');
+    hangmanState = browser.getText('#hangman-drawing');
+    assert.strictEqual(hangmanState, asciiHangmen.threeTurnsRemaining);
+
+    browser.selectByVisibleText('#unused-letters', 'w');
+    browser.click('#select-letter-button');
+    hangmanState = browser.getText('#hangman-drawing');
+    assert.strictEqual(hangmanState, asciiHangmen.twoTurnsRemaining);
+
+    browser.selectByVisibleText('#unused-letters', 'v');
+    browser.click('#select-letter-button');
+    hangmanState = browser.getText('#hangman-drawing');
+    assert.strictEqual(hangmanState, asciiHangmen.oneTurnRemaining);
+
+    browser.selectByVisibleText('#unused-letters', 't');
+    browser.click('#select-letter-button');
+    hangmanState = browser.getText('#hangman-drawing');
+    assert.strictEqual(hangmanState, asciiHangmen.zeroTurnsRemaining);
+
   });
 
 });
