@@ -6,6 +6,9 @@ html
     div#hangman-drawing
       include ./includes/ascii-hangmen/6-turns-remaining.pug
 
+    div#masked-answer
+      span= maskedAnswer
+
     form#pick-letter-form(method="post")
           select#unused-letters(name='letter')
             for letter in unusedLetters

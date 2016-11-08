@@ -1,18 +1,19 @@
 'use strict';
 
-const childProcess = require('child_process');
+const app = require('./app');
 
 let server;
 
-function start() {
-  server = childProcess.fork('./app');
-}
-
-function stop() {
-  server.kill();
-}
-
-module.exports = {
-  start,
-  stop,
+const start = () => {
+  server = app.listen(8080, () => {
+    console.log('Listening...');
+  });
 };
+
+const stop = () => {
+  server.close(() => {
+    console.log('Closed...');
+  })
+};
+
+module.exports = { start, stop };

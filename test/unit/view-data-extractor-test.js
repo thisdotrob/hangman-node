@@ -1,8 +1,16 @@
 'use strict';
 
 const assert = require('assert');
+const sinon = require('sinon');
+const proxyquire = require('proxyquire');
 
-const viewDataExtractor = require('../../lib/view-data-extractor');
+const answerMasker = {};
+
+const viewDataExtractor = proxyquire('../../lib/view-data-extractor', {
+  './answer-masker': answerMasker,
+});
+
+beforeEach(() => answerMasker.getMaskedAnswer = sinon.stub());
 
 describe('viewDataExtractor extract (unit)', () => {
   it('should extract the unused letters from the game', () => {
@@ -11,13 +19,30 @@ describe('viewDataExtractor extract (unit)', () => {
       otherProperty: { value: 'xyz' },
     };
 
-    const expectedViewData = {
-      unusedLetters: game.unusedLetters,
+    const viewData = viewDataExtractor.extract(game);
+
+    assert.deepStrictEqual(viewData.unusedLetters, game.unusedLetters);
+
+  });
+
+  it('should get the masked answer from the answer masker', () => {
+    const game = {
+      unusedLetters: ['a', 'j', 't', 'e'],
+      answer: ['t', 'r', 'a', 's', 'h'],
+      incorrectlyGuessedLetters: ['x', 'y'],
+      correctlyGuessedLetters: ['t', 'r'],
+      otherProperty: { value: 'xyz' },
     };
+
+    const maskedAnswer = ['t', 'r', '_', '_', '_'];
+
+    answerMasker.getMaskedAnswer.returns(maskedAnswer);
 
     const viewData = viewDataExtractor.extract(game);
 
-    assert.deepStrictEqual(viewData, expectedViewData);
+    assert(answerMasker.getMaskedAnswer.calledWith(game.answer, game.correctlyGuessedLetters));
+
+    assert.equal(viewData.maskedAnswer, maskedAnswer);
 
   });
 

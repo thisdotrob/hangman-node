@@ -9,4 +9,4 @@ app.set('view engine', 'pug');
 
 app.get('/', (req, res) => gameRenderer.render(req, res));
 
-app.listen(8080);
+module.exports = app;

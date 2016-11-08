@@ -2,6 +2,7 @@
 
 const assert = require('assert');
 const sinon = require('sinon');
+const sinonAsPromised = require('sinon-as-promised');
 const proxyquire = require('proxyquire');
 
 const newGameGenerator = {};
@@ -15,16 +16,18 @@ const gameRenderer = proxyquire('../../lib/game-renderer', {
 });
 
 beforeEach(() => {
-  newGameGenerator.generate = sinon.stub().returns({});
+  newGameGenerator.generate = sinon.stub().resolves({});
   viewDataExtractor.extract = sinon.stub().returns({});
   res.render = sinon.stub();
 });
 
 describe('gameRenderer render (unit)', () => {
   it('should create a new game', () => {
-    gameRenderer.render(req, res);
+    return gameRenderer.render(req, res)
+      .then(() => {
+        assert(newGameGenerator.generate.called);
 
-    assert(newGameGenerator.generate.called)
+      });
 
   });
 
@@ -33,11 +36,13 @@ describe('gameRenderer render (unit)', () => {
       unusedLetters: ['z', 'y', 'x'],
     };
 
-    newGameGenerator.generate.returns(game);
+    newGameGenerator.generate.resolves(game);
 
-    gameRenderer.render(req, res);
+    return gameRenderer.render(req, res)
+      .then(() => {
+        assert(viewDataExtractor.extract.calledWith(game));
 
-    assert(viewDataExtractor.extract.calledWith(game));
+      });
 
   });
 
@@ -48,9 +53,11 @@ describe('gameRenderer render (unit)', () => {
 
     viewDataExtractor.extract.returns(viewData);
 
-    gameRenderer.render(req, res);
+    return gameRenderer.render(req, res)
+      .then(() => {
+        assert(res.render.calledWith('index', viewData));
 
-    assert(res.render.calledWith('index', viewData));
+      });
 
   });
 
