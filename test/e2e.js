@@ -90,3 +90,11 @@ describe('selecting a wrong letter (e2e)', () => {
   });
 
 });
+
+describe('losing the game (e2e)', () => {
+  it('should display the commiserations message', () => {
+    const displayedAnswer = browser.getText('#result-message');
+    assert.strictEqual(displayedAnswer, 'Oh dear, you lost!');
+  });
+
+});

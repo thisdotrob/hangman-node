@@ -29,3 +29,9 @@ html
             for letter in unusedLetters
               option(value=letter)= letter
           input#select-letter-button(type="submit", value="Select letter")
+
+
+
+    div#result-message
+      if result === 'lost'
+        | Oh dear, you lost!
