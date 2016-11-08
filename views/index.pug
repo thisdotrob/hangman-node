@@ -9,8 +9,8 @@ html
     div#masked-answer
       span= maskedAnswer
 
-    form#pick-letter-form(method="post")
+    form#select-letter-form(method="post" action="/select-letter")
           select#unused-letters(name='letter')
             for letter in unusedLetters
               option(value=letter)= letter
-          input#pick-letter-button(type="submit", value="Pick letter")
+          input#select-letter-button(type="submit", value="Select letter")

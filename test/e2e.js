@@ -43,3 +43,19 @@ describe('starting a new game (e2e)', () => {
   });
 
 });
+
+describe('selecting a wrong letter (e2e)', () => {
+  it('should remove the letter from the dropdown of unused letters', () => {
+    const wrongLetter = constants.FULL_ALPHABET.find(letter => !TEST_ANSWER.includes(letter));
+
+    browser.selectByVisibleText('#unused-letters', wrongLetter);
+    browser.click('#select-letter-button');
+
+    const unusedLetters = browser.getText('select#unused-letters');
+
+    const expectedUnusedLetters = constants.FULL_ALPHABET.join('').replace(wrongLetter, '');
+
+    assert.strictEqual(unusedLetters, expectedUnusedLetters);
+  });
+
+});
