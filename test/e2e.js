@@ -6,7 +6,7 @@ const server = require('../server');
 const asciiHangmen = require('./ascii-hangmen');
 const constants = require('../constants');
 
-const TEST_ANSWER = 'concurred';
+const TEST_ANSWER = 'Concurred';
 
 before(() => {
   nock(constants.WORDNIK_BASE_URL)
