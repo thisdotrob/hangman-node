@@ -13,8 +13,6 @@ describe('gameUpdater update (unit)', () => {
       unusedLetters,
       turnsLeft: 6,
       answer: ['d', 'o', 'g'],
-      incorrectlyGuessedLetters: ['z', 'x', 'y'],
-      correctlyGuessedLetters: ['d', 'o'],
     };
 
     const req = { body: { letter: 'c' }, session: { game } };
@@ -36,8 +34,6 @@ describe('gameUpdater update (unit)', () => {
       unusedLetters: ['a', 'b', 'c'],
       turnsLeft,
       answer: ['d', 'o', 'g'],
-      incorrectlyGuessedLetters: ['z', 'x', 'y'],
-      correctlyGuessedLetters: ['d', 'o'],
     };
 
     const req = { body: { letter: 'c' }, session: { game } };
@@ -59,8 +55,6 @@ describe('gameUpdater update (unit)', () => {
       unusedLetters: ['a', 'b', 'c', 'g'],
       turnsLeft,
       answer: ['d', 'o', 'g'],
-      incorrectlyGuessedLetters: ['z', 'x', 'y'],
-      correctlyGuessedLetters: ['d', 'o'],
     };
 
     const req = { body: { letter: 'g' }, session: { game } };
@@ -78,8 +72,6 @@ describe('gameUpdater update (unit)', () => {
     const game = {
       unusedLetters: ['a', 'b', 'c'],
       answer: ['d', 'o', 'g'],
-      incorrectlyGuessedLetters: ['z', 'x', 'y'],
-      correctlyGuessedLetters: ['d', 'o'],
     };
 
     const req = { body: { letter: 'c' }, session: { game } };

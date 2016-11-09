@@ -29,8 +29,6 @@ describe('gameStarter start (unit)', () => {
     const game = {
       unusedLetters: ['a', 'b', 'c'],
       answer: ['d', 'o', 'g'],
-      incorrectlyGuessedLetters: ['z', 'x', 'y'],
-      correctlyGuessedLetters: ['d', 'o'],
     };
 
     newGameGenerator.generate.resolves(game);

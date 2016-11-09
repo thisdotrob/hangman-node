@@ -43,18 +43,4 @@ describe('newGameGenerator generate (unit)', () => {
       });
   });
 
-  it('should set the incorrectly guessed letters to an empty array', () => {
-    return newGameGenerator.generate()
-      .then(newGame => {
-        assert(newGame.incorrectlyGuessedLetters.length === 0);
-      })
-  });
-
-  it('should set the correctly guessed letters to an empty array', () => {
-    return newGameGenerator.generate()
-      .then(newGame => {
-        assert(newGame.correctlyGuessedLetters.length === 0);
-      })
-  });
-
 });

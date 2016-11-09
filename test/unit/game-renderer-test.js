@@ -34,8 +34,6 @@ describe('gameRenderer render (unit)', () => {
       const existingGame = {
         unusedLetters: ['a', 't', 'o'],
         answer: ['t', 'r', 'a', 'i', 'n'],
-        incorrectlyGuessedLetters: ['z', 'x', 'y', 'm'],
-        correctlyGuessedLetters: ['r', 'i', 'n'],
       };
 
       const req = { session: { game: existingGame } };

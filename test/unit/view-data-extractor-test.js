@@ -34,8 +34,6 @@ describe('viewDataExtractor extract (unit)', () => {
     const game = {
       unusedLetters: ['a', 'j', 't', 'e'],
       answer: ['t', 'r', 'a', 's', 'h'],
-      incorrectlyGuessedLetters: ['x', 'y'],
-      correctlyGuessedLetters: ['t', 'r'],
       otherProperty: { value: 'xyz' },
     };
 
@@ -45,7 +43,7 @@ describe('viewDataExtractor extract (unit)', () => {
 
     const viewData = viewDataExtractor.extract(game);
 
-    assert(answerMasker.getMaskedAnswer.calledWith(game.answer, game.correctlyGuessedLetters));
+    assert(answerMasker.getMaskedAnswer.calledWith(game.answer, game.unusedLetters));
 
     assert.equal(viewData.maskedAnswer, maskedAnswer);
 
@@ -67,8 +65,6 @@ describe('viewDataExtractor extract (unit)', () => {
     const game = {
       unusedLetters: ['a', 'j', 't', 'e'],
       answer: ['t', 'r', 'a', 's', 'h'],
-      incorrectlyGuessedLetters: ['x', 'y'],
-      correctlyGuessedLetters: ['t', 'r'],
       otherProperty: { value: 'xyz' },
     };
 
