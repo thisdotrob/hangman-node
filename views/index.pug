@@ -24,14 +24,17 @@ html
     div#masked-answer
       span= maskedAnswer
 
-    form#select-letter-form(method="post" action="/select-letter")
-          select#unused-letters(name='letter')
-            for letter in unusedLetters
-              option(value=letter)= letter
-          input#select-letter-button(type="submit", value="Select letter")
+    case result
+      when 'in-progress'
+        form#select-letter-form(method="post" action="/select-letter")
+              select#unused-letters(name='letter')
+                for letter in unusedLetters
+                  option(value=letter)= letter
+              input#select-letter-button(type="submit", value="Select letter")
 
+      when 'lost'
+        div#result-message
+          | Oh dear, you lost!
 
-
-    div#result-message
-      if result === 'lost'
-        | Oh dear, you lost!
+        form#start-new-game-form(method="post" action="/start-new-game")
+          input#start-new-game-button(type="submit", value="Play again")

@@ -10,7 +10,6 @@ const TEST_ANSWER = 'concurred';
 
 before(() => {
   nock(constants.WORDNIK_BASE_URL)
-    .persist()
     .get(constants.WORDNIK_PATH)
     .query(constants.WORDNIK_QUERY)
     .reply(200, { id: 1, word: TEST_ANSWER });
@@ -95,6 +94,42 @@ describe('losing the game (e2e)', () => {
   it('should display the commiserations message', () => {
     const displayedAnswer = browser.getText('#result-message');
     assert.strictEqual(displayedAnswer, 'Oh dear, you lost!');
+  });
+
+  it('should not display the \'pick letter\' drop down and submit button', () => {
+    assert(!browser.isExisting('#select-letter-form'));
+  });
+
+  it('should display the start new game button', () => {
+    assert(browser.isExisting('#start-new-game-button'));
+  });
+
+});
+
+describe('playing again (e2e)', () => {
+  it('should display a new answer', () => {
+    const NEW_TEST_ANSWER = 'cat';
+
+    nock(constants.WORDNIK_BASE_URL)
+      .get(constants.WORDNIK_PATH)
+      .query(constants.WORDNIK_QUERY)
+      .reply(200, { id: 1, word: NEW_TEST_ANSWER });
+
+    browser.click('#start-new-game-button');
+
+    const displayedAnswer = browser.getText('#masked-answer');
+    const expectedDisplayedAnswer = NEW_TEST_ANSWER.split('').map(() => '_').join(' ');
+    assert.strictEqual(displayedAnswer, expectedDisplayedAnswer);
+  });
+
+  it('should reset the hangman display', () => {
+    const hangmanState = browser.getText('#hangman-drawing');
+    assert.strictEqual(hangmanState, asciiHangmen.sixTurnsRemaining);
+  });
+
+  it('should reset the unused letters drop down', () => {
+    const unusedLetters = browser.getText('select#unused-letters');
+    assert.strictEqual(unusedLetters, constants.FULL_ALPHABET.join(''));
   });
 
 });
