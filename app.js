@@ -41,6 +41,6 @@ app.get('/', (req, res) => gameRenderer.render(req, res));
 
 app.post('/select-letter', (req, res) => gameUpdater.update(req, res));
 
-app.post('/start-new-game', (req, res) => gameStarter.start(req, res));
+app.get('/start-new-game', (req, res) => gameStarter.start(req, res));
 
 module.exports = app;

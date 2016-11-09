@@ -101,7 +101,7 @@ describe('losing the game (e2e)', () => {
   });
 
   it('should display the start new game button', () => {
-    assert(browser.isExisting('#start-new-game-button'));
+    assert(browser.isExisting('#start-new-game-link'));
   });
 
 });
@@ -115,7 +115,7 @@ describe('playing again (e2e)', () => {
       .query(constants.WORDNIK_QUERY)
       .reply(200, { id: 1, word: NEW_TEST_ANSWER });
 
-    browser.click('#start-new-game-button');
+    browser.click('#start-new-game-link');
 
     const displayedAnswer = browser.getText('#masked-answer');
     const expectedDisplayedAnswer = NEW_TEST_ANSWER.split('').map(() => '_').join(' ');
