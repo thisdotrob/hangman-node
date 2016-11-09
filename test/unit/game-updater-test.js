@@ -52,6 +52,28 @@ describe('gameUpdater update (unit)', () => {
 
   });
 
+  it('should not deduct a turn if the letter is in the answer', () => {
+    const turnsLeft = 6;
+
+    const game = {
+      unusedLetters: ['a', 'b', 'c', 'g'],
+      turnsLeft,
+      answer: ['d', 'o', 'g'],
+      incorrectlyGuessedLetters: ['z', 'x', 'y'],
+      correctlyGuessedLetters: ['d', 'o'],
+    };
+
+    const req = { body: { letter: 'g' }, session: { game } };
+
+    const res = { redirect: sinon.stub() };
+
+    gameUpdater.update(req, res);
+
+    const expectedTurnsLeft = turnsLeft;
+
+    assert.deepStrictEqual(req.session.game.turnsLeft, expectedTurnsLeft);
+  });
+
   it('should redirect to the index', () => {
     const game = {
       unusedLetters: ['a', 'b', 'c'],

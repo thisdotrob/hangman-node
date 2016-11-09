@@ -133,3 +133,36 @@ describe('playing again (e2e)', () => {
   });
 
 });
+
+describe('selecting the right letter (e2e)', () => {
+  it('should remove the letter from the dropdown of unused letters', () => {
+    const rightLetter = 'c';
+
+    browser.selectByVisibleText('#unused-letters', rightLetter);
+    browser.click('#select-letter-button');
+
+    const unusedLetters = browser.getText('select#unused-letters');
+
+    const expectedUnusedLetters = constants.FULL_ALPHABET.join('').replace(rightLetter, '');
+
+    assert.strictEqual(unusedLetters, expectedUnusedLetters);
+  });
+
+  it('should not use up a turn', () => {
+    let hangmanState = browser.getText('#hangman-drawing');
+    assert.strictEqual(hangmanState, asciiHangmen.sixTurnsRemaining);
+
+    browser.selectByVisibleText('#unused-letters', 'a');
+    browser.click('#select-letter-button');
+    hangmanState = browser.getText('#hangman-drawing');
+    assert.strictEqual(hangmanState, asciiHangmen.sixTurnsRemaining);
+
+    browser.selectByVisibleText('#unused-letters', 't');
+    browser.click('#select-letter-button');
+    hangmanState = browser.getText('#hangman-drawing');
+    assert.strictEqual(hangmanState, asciiHangmen.sixTurnsRemaining);
+
+  });
+
+
+});
