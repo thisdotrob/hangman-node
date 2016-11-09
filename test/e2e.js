@@ -148,24 +148,40 @@ describe('selecting the right letter (e2e)', () => {
     assert.strictEqual(unusedLetters, expectedUnusedLetters);
   });
 
-  it('should not use up a turn', () => {
-    let hangmanState = browser.getText('#hangman-drawing');
-    assert.strictEqual(hangmanState, asciiHangmen.sixTurnsRemaining);
-  });
-
   it('should reveal the correctly guessed letter in the masked answer', () => {
     const displayedAnswer = browser.getText('#masked-answer');
     assert.strictEqual(displayedAnswer, 'c _ _');
   });
 
-  // browser.selectByVisibleText('#unused-letters', 'a');
-  // browser.click('#select-letter-button');
-  // hangmanState = browser.getText('#hangman-drawing');
-  // assert.strictEqual(hangmanState, asciiHangmen.sixTurnsRemaining);
+  it('should not use up a turn', () => {
+    let hangmanState = browser.getText('#hangman-drawing');
+    assert.strictEqual(hangmanState, asciiHangmen.sixTurnsRemaining);
 
-  // browser.selectByVisibleText('#unused-letters', 't');
-  // browser.click('#select-letter-button');
-  // hangmanState = browser.getText('#hangman-drawing');
-  // assert.strictEqual(hangmanState, asciiHangmen.sixTurnsRemaining);
+    browser.selectByVisibleText('#unused-letters', 'a');
+    browser.click('#select-letter-button');
+    hangmanState = browser.getText('#hangman-drawing');
+    assert.strictEqual(hangmanState, asciiHangmen.sixTurnsRemaining);
+
+    browser.selectByVisibleText('#unused-letters', 't');
+    browser.click('#select-letter-button');
+    hangmanState = browser.getText('#hangman-drawing');
+    assert.strictEqual(hangmanState, asciiHangmen.sixTurnsRemaining);
+  });
+
+});
+
+describe('winning a game (e2e)', () => {
+  it('should display the congratulations message', () => {
+    const displayedAnswer = browser.getText('#result-message');
+    assert.strictEqual(displayedAnswer, 'Congratulations, you won!');
+  });
+
+  it('should not display the \'pick letter\' drop down and submit button', () => {
+    assert(!browser.isExisting('#select-letter-form'));
+  });
+
+  it('should display the start new game button', () => {
+    assert(browser.isExisting('#start-new-game-link'));
+  });
 
 });

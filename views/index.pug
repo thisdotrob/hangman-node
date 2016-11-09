@@ -37,3 +37,9 @@ html
           | Oh dear, you lost!
 
         a#start-new-game-link(href="/start-new-game") Play again
+
+      when 'won'
+        div#result-message
+          | Congratulations, you won!
+
+        a#start-new-game-link(href="/start-new-game") Play again
