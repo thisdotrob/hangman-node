@@ -3,14 +3,13 @@
 const express = require('express');
 const app = express();
 
+const constants = require('./constants');
+
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 
-const mongoUser = process.env.MONGO_USER;
-const mongoPwd= process.env.MONGO_PASSWORD;
-
 const store = new MongoDBStore({
-  uri: `mongodb://${mongoUser}:${mongoPwd}@localhost:27017/hangman_session_test?authSource=admin`,
+  uri: constants.MONGO_URI,
   collection: 'sessions'
 });
 

@@ -8,15 +8,15 @@ const constants = require('../constants');
 
 const TEST_ANSWER = 'Concurred';
 
-before(() => {
+before(done => {
   nock(constants.WORDNIK_BASE_URL)
     .get(constants.WORDNIK_PATH)
     .query(constants.WORDNIK_QUERY)
     .reply(200, { id: 1, word: TEST_ANSWER });
 
-  server.start();
-
-  browser.url('http://localhost:8080/');
+  server.start(() => {
+    browser.url('http://localhost:8080/');
+  });
 
 });
 
@@ -24,6 +24,7 @@ after(() => server.stop());
 
 describe('starting a new game (e2e)', () => {
   it('should display the hangman platform', () => {
+    browser.pause(500);   // wait for server to start...
     const hangmanState = browser.getText('#hangman-drawing');
     assert.strictEqual(hangmanState, asciiHangmen.sixTurnsRemaining);
   });

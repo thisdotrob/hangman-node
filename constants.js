@@ -8,4 +8,5 @@ module.exports = {
     api_key: process.env.WORDNIK_API_KEY,
   },
   NUMBER_OF_TURNS: 6,
+  MONGO_URI: `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@localhost:27017/hangman_session_test?authSource=admin`,
 };
