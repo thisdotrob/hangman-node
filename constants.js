@@ -13,4 +13,5 @@ module.exports = {
   },
   NUMBER_OF_TURNS: 6,
   MONGO_URI: `mongodb://localhost:27017/${MONGO_DB_NAME}`,
+  REQUEST_TIMEOUT: 6000,
 };

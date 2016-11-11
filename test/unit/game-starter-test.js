@@ -42,4 +42,15 @@ describe('gameStarter start (unit)', () => {
       .then(() => assert(res.redirect.calledWith('/')));
   });
 
+  describe('when the new game generator rejects', () => {
+    it('should redirect to the \'oops\' page', () => {
+      newGameGenerator.generate.rejects(new Error());
+
+      return gameStarter.start(req, res)
+        .then(() => assert(res.redirect.calledWith('/oops')));
+
+    });
+
+  });
+
 });

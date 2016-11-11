@@ -45,4 +45,6 @@ app.get('/start-new-game', (req, res) => gameStarter.start(req, res));
 
 app.get('/manage', (req, res) => managementRenderer.render(req, res));
 
+app.get('/oops', (req, res) => res.render('oops'));
+
 module.exports = app;

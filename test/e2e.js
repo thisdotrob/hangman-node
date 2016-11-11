@@ -226,4 +226,44 @@ describe('viewing the management page', () => {
     const result = browser.getText('#game-result');
     assert.equal(result, 'won');
   });
+
+});
+
+describe('when there is a problem communicating with Wordnik', () => {
+  it('should show an \'oops\' page', () => {
+    browser.url('http://localhost:8080/');
+
+    process.env.requestTimeout = 1;
+
+    nock(constants.WORDNIK_BASE_URL)
+      .get(constants.WORDNIK_PATH)
+      .query(constants.WORDNIK_QUERY)
+      .delayConnection(5)
+      .reply(200, { id: 1, word: NEW_TEST_ANSWER });
+
+    browser.click('#start-new-game-link');
+
+    const currentUrl = browser.getUrl();
+
+    assert.equal(currentUrl, 'http://localhost:8080/oops')
+
+    const oopsMessage = browser.getText('#oops-message');
+    assert.equal(oopsMessage, 'Oops! something went wrong...');
+  });
+
+  it('should allow the player to try again', () => {
+    delete process.env.requestTimeout;
+
+    nock(constants.WORDNIK_BASE_URL)
+      .get(constants.WORDNIK_PATH)
+      .query(constants.WORDNIK_QUERY)
+      .reply(200, { id: 1, word: NEW_TEST_ANSWER });
+
+    browser.click('#try-again-link');
+
+    const currentUrl = browser.getUrl();
+
+    assert.equal(currentUrl, 'http://localhost:8080/')
+  });
+
 });

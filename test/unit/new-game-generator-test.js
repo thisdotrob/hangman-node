@@ -43,4 +43,16 @@ describe('newGameGenerator generate (unit)', () => {
       });
   });
 
+  describe('when the random answer generator rejects', () => {
+    it('should reject with the error', () => {
+      const expectedErr = new Error('unable to get answer');
+
+      randomAnswerGenerator.generate.rejects(expectedErr);
+
+      return newGameGenerator.generate()
+        .catch(err => assert.equal(err, expectedErr));
+
+    });
+  });
+
 });
