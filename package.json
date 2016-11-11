@@ -30,6 +30,7 @@
     "express-session": "^1.14.2",
     "mongodb": "^2.2.11",
     "pug": "^2.0.0-beta6",
-    "superagent": "^2.3.0"
+    "superagent": "^2.3.0",
+    "superagent-promise": "^1.1.0"
   }
 }
