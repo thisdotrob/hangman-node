@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+const server = require('./server');
+
+server.start(() => {
+  console.log('Hangman started succesfully!');
+})
