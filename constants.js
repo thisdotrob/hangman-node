@@ -1,3 +1,7 @@
+'use strict';
+
+const MONGO_DB_NAME = process.env.NODE_ENV === 'test' ? 'hangman_test' : 'hangman';
+
 module.exports = {
   FULL_ALPHABET: 'abcdefghijklmnopqrstuvwxyz'.split(''),
   WORDNIK_BASE_URL: 'http://api.wordnik.com',
@@ -8,5 +12,5 @@ module.exports = {
     api_key: process.env.WORDNIK_API_KEY,
   },
   NUMBER_OF_TURNS: 6,
-  MONGO_URI: `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@localhost:27017/hangman_session_test?authSource=admin`,
+  MONGO_URI: `mongodb://localhost:27017/${MONGO_DB_NAME}`,
 };
