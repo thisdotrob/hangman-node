@@ -1,0 +1,21 @@
+html
+  head
+    title= title
+
+  body
+    table#games-data(cellpadding="10")
+      tr
+        th #
+        th answer
+        th masked answer
+        th used letters
+        th turns left
+        th result
+      for game in games
+        tr#game-data-row
+          td#game-index= games.indexOf(game) + 1
+          td#game-answer= game.answer
+          td#game-masked-answer= game.maskedAnswer
+          td#game-used-letters= game.usedLetters
+          td#game-turns-left= game.turnsLeft
+          td#game-result= game.result

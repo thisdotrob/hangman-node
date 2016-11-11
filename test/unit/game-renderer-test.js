@@ -44,6 +44,13 @@ describe('gameRenderer render (unit)', () => {
     });
 
     it('should render the \'index\' template with the viewData', () => {
+      const existingGame = {
+        unusedLetters: ['a', 't', 'o'],
+        answer: ['t', 'r', 'a', 'i', 'n'],
+      };
+
+      const req = { session: { game: existingGame } };
+      
       const viewData = {
         unusedLetters: ['l', 'm', 'n'],
       };

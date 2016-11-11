@@ -107,9 +107,11 @@ describe('losing the game (e2e)', () => {
 
 });
 
+let NEW_TEST_ANSWER;
+
 describe('playing again (e2e)', () => {
   it('should display a new answer', () => {
-    const NEW_TEST_ANSWER = 'cat';
+    NEW_TEST_ANSWER = 'cat';
 
     nock(constants.WORDNIK_BASE_URL)
       .get(constants.WORDNIK_PATH)
@@ -185,4 +187,38 @@ describe('winning a game (e2e)', () => {
     assert(browser.isExisting('#start-new-game-link'));
   });
 
+});
+
+describe('viewing the management page', () => {
+  it('should display the index of the game(s)', () => {
+    browser.url('http://localhost:8080/manage');
+
+    const index = browser.getText('#game-index');
+    assert.equal(index, '1');
+  });
+
+  it('should display the answer of the game(s)', () => {
+    const answer = browser.getText('#game-answer');
+    assert.equal(answer, 'c a t');
+  });
+
+  it('should display the masked answer of the game(s)', () => {
+    const maskedAnswer = browser.getText('#game-masked-answer');
+    assert.equal(maskedAnswer, 'c a t');
+  });
+
+  it('should display the used letters of the game(s)', () => {
+    const usedLetters = browser.getText('#game-used-letters');
+    assert.equal(usedLetters, 'a,c,t');
+  });
+
+  it('should display the turns left of the game(s)', () => {
+    const turnsLeft = browser.getText('#game-turns-left');
+    assert.equal(turnsLeft, 6);
+  });
+
+  it('should display the result of the game(s)', () => {
+    const result = browser.getText('#game-result');
+    assert.equal(result, 'won');
+  });
 });
