@@ -15,7 +15,10 @@ before(done => {
     .reply(200, { id: 1, word: TEST_ANSWER });
 
   server.start(() => {
-    browser.url('http://localhost:8080/');
+    const db = require('../db');
+    db.dropSessions(() => {
+      browser.url('http://localhost:8080/');
+    })
   });
 
 });

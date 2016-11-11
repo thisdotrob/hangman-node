@@ -38,8 +38,19 @@ function getAllSessions() {
 
 }
 
+function dropSessions(cb) {
+  _db.collection('sessions').drop((err, reply) => {
+    if (typeof cb === 'function') cb();
+
+    return;
+
+  });
+
+}
+
 
 module.exports = {
   connect,
   getAllSessions,
+  dropSessions,
 };
